@@ -416,6 +416,7 @@ console.log(MyBands.data);
 // MyBands.data = ["Van Halen", 5150];
 */
 
+/*
 ////////////////////////////////////////////////////
 // INDEX SIGNATURES & KEYOF ASSERTIONS //
 
@@ -501,3 +502,46 @@ const monthlyIncomes: Incomes = {
 for (const revenue in monthlyIncomes) {
   console.log(monthlyIncomes[revenue as keyof Incomes]);
 }
+*/
+
+///////////////////////////////////////////////
+//// GENERICS ////////
+const echo = <T>(arg: T): T => arg;
+
+const isObj = <T>(arg: T): boolean => {
+  return typeof arg === "object" && !Array.isArray(arg) && arg !== null;
+};
+
+console.log(isObj(true));
+console.log(isObj("James"));
+console.log(isObj([1, 2, 3]));
+console.log(isObj({ name: "James" }));
+console.log(isObj(null));
+
+interface HasId {
+  id: number;
+}
+
+class StateObject<T> {
+  private data: T;
+
+  constructor(value: T) {
+    this.data = value;
+  }
+
+  get state(): T {
+    return this.data;
+  }
+
+  set state(value: T) {
+    this.data = value;
+  }
+}
+
+const store = new StateObject("John");
+console.log(store.state);
+store.state = "Jane";
+
+const myState = new StateObject<(string | number | boolean)[]>([15]);
+myState.state = [true, "hello", 15];
+console.log(myState.state);

@@ -50,7 +50,7 @@ if (isNameInList(nameToCheck)) {
 } else {
   console.log(`${nameToCheck} is not in the list.`);
 }
-  */
+
 
 const sum = (a: number, b: string) => {
   return a + b;
@@ -63,3 +63,71 @@ let postId: string | number;
 let isActive: number | boolean;
 
 let re: RegExp = /\w+/g;
+*/
+
+////// ARRAYS AND OBJECTS //////
+let stringArr = ["john", "peter", "susan", "anna"];
+
+let guitars = ["strat", "les paul", 5150];
+
+let mixedData = ["EVH", 5150, true, "strat", 1984];
+
+stringArr[0] = "jane";
+stringArr.push("hey");
+
+guitars[0] = 1984;
+guitars.unshift("jim");
+
+let test = [];
+let bands: string[] = [];
+bands.push("van halen");
+
+//// TUPLES ///////
+let myTuple: [string, number, boolean] = ["john", 5150, true];
+
+let mixed = ["john", 5150, true];
+
+// mixed = myTuple;
+// myTuple = mixed //it will not work
+
+myTuple[1] = 5150;
+
+//// OBJECTS //////
+let myObj: object;
+myObj = [];
+console.log(typeof myObj);
+myObj = bands;
+myObj = {};
+
+const exampleObj = {
+  prop1: "James",
+  prop2: true,
+};
+exampleObj.prop1 = "John";
+
+interface Guitarist {
+  name: string;
+  active?: boolean;
+  albums: (string | number)[];
+}
+
+let evh: Guitarist = {
+  name: "Eddie Van Halen",
+  active: true,
+  albums: ["1984", 5150, 1984],
+};
+
+let jp: Guitarist = {
+  name: "Jimmy",
+  active: true,
+  albums: ["I", "II", "IV"],
+};
+evh = jp;
+
+const greetGuitarist = (guitarist: Guitarist) => {
+  if (guitarist.name) {
+    return `Hello ${guitarist.name.toUpperCase()}`;
+  }
+  return "Hello there";
+};
+console.log(greetGuitarist(evh));

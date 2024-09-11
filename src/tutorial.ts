@@ -133,6 +133,7 @@ const greetGuitarist = (guitarist: Guitarist) => {
 console.log(greetGuitarist(evh));
 */
 
+/*
 ////// ENUMS //////
 // "Unlike most TypeScript are not a type-level addition to JavaScript but something added to the language and runtime."
 
@@ -232,3 +233,59 @@ const numberOrString = (value: number | string): string => {
   }
   return createError("This should never happen!");
 };
+*/
+
+//// ASSERTIONS ////
+type One = string;
+type Two = string | number;
+type Three = "hello";
+
+// convert to more or less specific type
+let a: One = "hello";
+let b = a as Two; // les specific
+let c = a as Three; // more specific
+
+let d = <One>"world";
+let e = <string | number>"world";
+
+const addOrConcat = (
+  a: number,
+  b: number,
+  c: "add" | "concat"
+): number | string => {
+  if (c === "add") {
+    return a + b;
+  }
+  return "" + a + b;
+};
+
+let myVal: string = addOrConcat(1, 2, "concat") as string;
+
+// Be careful TS sees no problem - but a string is returned
+let nextVal: number = addOrConcat(1, 2, "concat") as number;
+
+10 as unknown as string;
+
+// THE DOM
+
+const img = document.querySelector("img") as HTMLImageElement;
+const myImg = document.getElementById("#img") as HTMLImageElement;
+const nextImg = <HTMLImageElement>document.getElementById("#img");
+
+img.src;
+myImg.src;
+
+let year: HTMLElement | null;
+year = document.getElementById("year");
+let thisYear: string;
+thisYear = new Date().getFullYear().toString();
+if (year) {
+  year.setAttribute("datetime", thisYear);
+  year.textContent = thisYear;
+}
+
+// Or
+const year1 = document.getElementById("year") as HTMLSpanElement;
+const thisYear1: string = new Date().getFullYear().toString();
+year1.setAttribute("datetime", thisYear1);
+year1.textContent = thisYear1;

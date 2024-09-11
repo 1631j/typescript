@@ -292,6 +292,7 @@ year1.setAttribute("datetime", thisYear1);
 year1.textContent = thisYear1;
 */
 
+/*
 //// CLASSES ////
 class Coder {
   secondLang!: string;
@@ -413,3 +414,90 @@ console.log(MyBands.data);
 MyBands.data = [...MyBands.data, "AC/DC"];
 console.log(MyBands.data);
 // MyBands.data = ["Van Halen", 5150];
+*/
+
+////////////////////////////////////////////////////
+// INDEX SIGNATURES & KEYOF ASSERTIONS //
+
+// interface TransactionObj {
+//   [index: string]: number;
+// }
+
+interface TransactionObj {
+  [index: string]: number;
+  Pizza: number;
+  Books: number;
+  Job: number;
+}
+
+const todaysTranscation: TransactionObj = {
+  Pizza: -15,
+  Books: -30,
+  Job: 100,
+};
+
+console.log(todaysTranscation.Pizza);
+console.log(todaysTranscation["Pizza"]);
+
+let prop: string = "Pizza";
+console.log(todaysTranscation[prop]);
+
+const todaysNet = (transactions: TransactionObj): number => {
+  let total = 0;
+  for (const transaction in transactions) {
+    total += transactions[transaction];
+  }
+  return total;
+};
+
+console.log(todaysNet(todaysTranscation));
+////////////////////////////////////////////////////
+
+interface Student {
+  // [key: string]: string | number | number[] | undefined;
+  name: string;
+  GPA: number;
+  classes?: number[];
+}
+
+const student: Student = {
+  name: "John",
+  GPA: 3.5,
+  classes: [101, 102, 103],
+};
+
+// console.log(student.test);
+
+for (const key in student) {
+  console.log(`${key}: ${student[key as keyof Student]}`);
+}
+
+Object.keys(student).map((key) => {
+  console.log(student[key as keyof Student]);
+});
+
+const LogStudentKey = (student: Student, key: keyof Student): void => {
+  console.log(`Student ${key}: ${student[key]}`);
+};
+
+LogStudentKey(student, "name");
+
+////////////////////////////////////////////////////
+
+// interface Incomes{
+//   [key: string ]: number;
+// }
+
+type Streams = "salary" | "bonus" | "dividends";
+
+type Incomes = Record<Streams, number>;
+
+const monthlyIncomes: Incomes = {
+  salary: 5000,
+  bonus: 1000,
+  dividends: 200,
+};
+
+for (const revenue in monthlyIncomes) {
+  console.log(monthlyIncomes[revenue as keyof Incomes]);
+}

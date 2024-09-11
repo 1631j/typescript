@@ -1,4 +1,5 @@
 /////// FUNCTIONS //////
+/*
 function sayHi(name: string) {
   console.log(`Hello there ${name.toUpperCase()}!!!`);
 }
@@ -30,6 +31,7 @@ const someValue = result;
 
 // run time error
 someValue.myMethod();
+*/
 
 /*
 Create a new array of names.
@@ -49,3 +51,15 @@ if (isNameInList(nameToCheck)) {
   console.log(`${nameToCheck} is not in the list.`);
 }
   */
+
+const sum = (a: number, b: string) => {
+  return a + b;
+};
+
+sum(1, "2");
+// console.log(sum(1, "2"));
+
+let postId: string | number;
+let isActive: number | boolean;
+
+let re: RegExp = /\w+/g;

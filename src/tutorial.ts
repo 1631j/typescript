@@ -63,7 +63,7 @@ let postId: string | number;
 let isActive: number | boolean;
 
 let re: RegExp = /\w+/g;
-*/
+
 
 ////// ARRAYS AND OBJECTS //////
 let stringArr = ["john", "peter", "susan", "anna"];
@@ -131,3 +131,104 @@ const greetGuitarist = (guitarist: Guitarist) => {
   return "Hello there";
 };
 console.log(greetGuitarist(evh));
+*/
+
+////// ENUMS //////
+// "Unlike most TypeScript are not a type-level addition to JavaScript but something added to the language and runtime."
+
+enum Grade {
+  U = 1,
+  D,
+  C,
+  B,
+  A,
+}
+console.log(Grade.C);
+
+////// TYPE ALIASES //////
+type stringOrNumber = string | number;
+
+type stringOrNumberArray = (string | number)[];
+
+type Guitarist = {
+  name?: string;
+  active: boolean;
+  albums: stringOrNumberArray;
+  //(string | number)[];
+};
+
+type UserId = stringOrNumber;
+
+////// LITERAL TYPES //////
+let myName: "james";
+
+let userName: "john" | "jane" | "james";
+userName = "john";
+
+//// Functions ////
+const add = (a: number, b: number): number => {
+  return a + b;
+};
+
+const logMsg = (msg: any): void => {
+  console.log(msg);
+};
+
+logMsg(add(1, 2));
+logMsg("Hello there");
+// logMsg(add(1, "2"));
+
+// let subtract = (c: number, d: number): number {
+//   return c - d;
+// };
+
+type mathFunction = (a: number, b: number) => number;
+
+let multiply: mathFunction = function (c, d) {
+  return c * d;
+};
+
+logMsg(multiply(2, 3));
+
+//// REST PARAMETERS ////
+const total = (...nums: number[]): number => {
+  return nums.reduce((prev, curr) => prev + curr);
+};
+
+const total1 = (a: number, ...nums: number[]): number => {
+  return a + nums.reduce((prev, curr) => prev + curr);
+};
+
+logMsg(total(1, 2, 3, 4, 5));
+logMsg(total1(10, 2, 50));
+
+//// NEVER ////
+const createError = (errMsg: string): never => {
+  throw new Error(errMsg);
+};
+
+const infinite = () => {
+  let i: number = 1;
+  while (true) {
+    i++;
+    if (i > 100) {
+      break;
+    }
+  }
+};
+
+// custom type guard
+const isNumber = (value: any): boolean => {
+  return typeof value === "number" ? true : false;
+};
+
+// use of the never type
+const numberOrString = (value: number | string): string => {
+  if (isNumber(value)) {
+    return "number";
+  }
+  if (typeof value === "string") {
+    return "string";
+  }
+  return createError("This should never happen!");
+};
